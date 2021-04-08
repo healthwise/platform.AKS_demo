@@ -12,7 +12,8 @@ provider "azurerm" {
   version = "~> 2.49.0"
    features{
     key_vault {
-        purge_soft_delete_on_destroy = true
+        purge_soft_delete_on_destroy = false
+        recover_soft_deleted_key_vaults = true
       }
    }
 
@@ -26,8 +27,8 @@ provider "azurerm" {
 module "container_registry" {
   source = ".//modules/azure_container_registry/"
 
-  ENVIRONMENT                   = "staging"
-  LOCATION                      = "westus"
+  ENVIRONMENT                   = var.ENVIRONMENT
+  LOCATION                      = var.LOCATION
   ACR_GEOREPLICATION_LOCATIONS  = "East US"
 }
 
@@ -35,8 +36,8 @@ module "container_registry" {
 module "keyvault" {
   source = ".//modules/azure_keyvault/"
 
-  ENVIRONMENT                   = "staging"
-  LOCATION                      = "westus"
+  ENVIRONMENT                   = var.ENVIRONMENT
+  LOCATION                      = var.LOCATION
   # var.TENANT_ID pulls its value from the root variables file
   # if using azure devops pipelines, var. variables must be Uppercased
   TENANT_ID                     = var.TENANT_ID
