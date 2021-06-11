@@ -25,11 +25,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
       }
   }
 
-  addon_profile {
-    kube_dashboard {
-      enabled = true
-    }
-  }
 
   identity {
     type = "SystemAssigned"
