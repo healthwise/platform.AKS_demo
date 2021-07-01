@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "acr-resource-group" {
-  name     = "hw-west-rg-acr"
+  name     = "${var.PREFIX}-${var.ENVIRONMENT}-${var.LOCATION}-rg-acr"
   location = var.LOCATION
 
   tags = {
@@ -8,12 +8,19 @@ resource "azurerm_resource_group" "acr-resource-group" {
 }
 
 resource "azurerm_container_registry" "ContainerImages" {
-  name                     = "hwwestacr"
+  name                     = "${var.PREFIX}${var.ENVIRONMENT}${var.PREFIX}acr"
   resource_group_name      = azurerm_resource_group.acr-resource-group.name
   location                 = var.LOCATION
   sku                      = "Premium"
   admin_enabled            = true
-  georeplication_locations = [var.ACR_GEOREPLICATION_LOCATIONS]
+ 
+  georeplications = [{
+    location = var.ACR_GEOREPLICATION_LOCATIONS
+    tags     = {
+      replica = "East"
+    }
+  }]
+
   tags = {
     environment   = var.ENVIRONMENT
   }

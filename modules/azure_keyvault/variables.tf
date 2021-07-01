@@ -12,3 +12,7 @@ variable "TENANT_ID" {
   type = string
   description = "The Healthwise Tenant ID"
 }
+
+variable "PREFIX" {
+  type = string
+}

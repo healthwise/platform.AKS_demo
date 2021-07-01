@@ -1,13 +1,13 @@
 resource "azurerm_resource_group" "AKSRG" {
-  name     = "hwdemo-rg-westus-aks"
+  name     = "${var.PREFIX}-${var.ENVIRONMENT}-rg-westus-aks"
   location = var.LOCATION
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "hwdemo-aks-westus"
+  name                = "${var.PREFIX}-${var.ENVIRONMENT}-aks-westus"
   location            = var.LOCATION
   resource_group_name = azurerm_resource_group.AKSRG.name
-  dns_prefix          = "hwdemo-aks-dns"
+  dns_prefix          = "${var.PREFIX}-${var.ENVIRONMENT}-aks-dns"
 
   default_node_pool {
     name       = "default"
@@ -25,6 +25,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
       }
   }
 
+  # automatic_channel_upgrade = "stable"
 
   identity {
     type = "SystemAssigned"

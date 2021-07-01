@@ -2,14 +2,14 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "~> 2.49.0"
+      version = "~> 2.63.0"
     }
   }
   required_version = ">= 0.13"
 }
 
 provider "azurerm" {
-  version = "~> 2.49.0"
+  version = "~> 2.63.0"
    features{
     key_vault {
         purge_soft_delete_on_destroy = false
@@ -29,6 +29,7 @@ module "container_registry" {
 
   ENVIRONMENT                   = var.ENVIRONMENT
   LOCATION                      = var.LOCATION
+  PREFIX                        = var.PREFIX
   ACR_GEOREPLICATION_LOCATIONS  = "East US"
 }
 
@@ -38,6 +39,7 @@ module "keyvault" {
 
   ENVIRONMENT                   = var.ENVIRONMENT
   LOCATION                      = var.LOCATION
+  PREFIX                        = var.PREFIX
   # var.TENANT_ID pulls its value from the root variables file
   # if using azure devops pipelines, var. variables must be Uppercased
   TENANT_ID                     = var.TENANT_ID
@@ -48,6 +50,7 @@ source = ".//modules/azure_kubernetes_service/"
 
   KEYVAULT_RESOURCE_GROUP                       = module.keyvault.KEYVAULT_RESOURCE_GROUP
   LOCATION                                      = var.LOCATION
+  PREFIX                                        = var.PREFIX
   ENVIRONMENT                                   = var.ENVIRONMENT
   KEYVAULT_ID                                   = module.keyvault.KEYVAULT_ID
   TENANT_ID                                     = var.TENANT_ID

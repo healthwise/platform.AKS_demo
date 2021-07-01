@@ -7,6 +7,10 @@ variable "ENVIRONMENT" {
   type = string
 }
 
+variable "PREFIX" {
+  type = string
+}
+
 variable "KEYVAULT_RESOURCE_GROUP" {
   type = string
 }

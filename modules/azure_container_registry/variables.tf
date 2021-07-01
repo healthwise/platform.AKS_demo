@@ -13,3 +13,7 @@ variable "ACR_GEOREPLICATION_LOCATIONS" {
   default     = "East US"
   description = "The Azure geo-replication location for the container registry"
 }
+
+variable "PREFIX" {
+  type = string
+}

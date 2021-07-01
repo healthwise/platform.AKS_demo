@@ -45,6 +45,10 @@ variable "ENVIRONMENT" {
   type = string
 }
 
+variable "PREFIX" {
+  type = string
+}
+
 variable "ADMIN_GROUP_OBJECT_ID" {
   type = string
   description = "This is the Azure ad group object ID that will have admin access to the cluster"

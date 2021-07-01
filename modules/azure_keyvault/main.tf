@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_resource_group" "keyvault-resource-group" {
-  name     = "hw-west-rg-kv"
+  name     = "${var.PREFIX}-${var.ENVIRONMENT}-west-rg-kv"
   location = var.LOCATION
 
   tags = {
@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "keyvault-resource-group" {
 # Keyvault does not allow you to fully delete it for up to 90 days after its created (soft deletes)
 # This will provide a random keyvault name for demo purposes
 resource "random_id" "kvname" {
-  byte_length = 5
+  byte_length = 2
   prefix = "keyvault"
 }
 
